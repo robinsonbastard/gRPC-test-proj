@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var channel = Channel.CreateUnbounded<string>();
 
 builder.Services.AddSingleton<PrintService>(_ => new PrintService(channel));
-builder.Services.AddScoped<RequestService>(_ => new RequestService(channel));
+builder.Services.AddSingleton<RequestService>(_ => new RequestService(channel));
 builder.Services.AddSingleton<InputDataService>();
 builder.Services.AddHostedService<WorkerHostedService>();
 

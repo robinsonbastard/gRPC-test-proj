@@ -4,30 +4,24 @@ using GrpcProto.HelloContract;
 
 namespace Grpc.Love.Services;
 
-public sealed class RequestService
+public sealed class RequestService(Channel<string, string> channel)
 {
-    private readonly ChannelWriter<string> _channelWriter;
-    private readonly Hello.HelloClient _client;
+    private readonly ChannelWriter<string> _channelWriter = channel.Writer;
 
-    public RequestService(Channel<string, string> channel)
-    {
-        _channelWriter = channel.Writer;
-        using var grpcChannel = GrpcChannel.ForAddress("http://localhost:5157");
-        _client = new Hello.HelloClient(grpcChannel);
-    }
-    
     public async Task RequestAsync(string message, CancellationToken cancellationToken)
     {
         try
         {
-            var reply = await _client.SayHelloAsync(new HelloRequest { Name = message },
+            using var grpcChannel = GrpcChannel.ForAddress("http://localhost:5028");
+            var client = new Hello.HelloClient(grpcChannel);
+            var reply = await client.SayHelloAsync(new HelloRequest { Name = message },
                 cancellationToken: cancellationToken);
             var messageForPrint = $"Получен ответ от gRPC-2 {reply.Message}";
             await _channelWriter.WriteAsync(messageForPrint, cancellationToken);
         }
         catch (Exception e)
         {
-            await _channelWriter.WriteAsync(e.Message, cancellationToken);
+            await _channelWriter.WriteAsync("При запросе от Hello" + e.Message, cancellationToken);
         }
     }
 }

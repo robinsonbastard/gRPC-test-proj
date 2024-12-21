@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using Grpc.Core;
 using GrpcProto.HelloContract;
 
@@ -7,6 +8,8 @@ public sealed class HelloGrpcService : GrpcProto.HelloContract.Hello.HelloBase
 {
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
+        Console.WriteLine($"Пришел запрос от Love на приветствие {request.Name}");
+
         if (request.Name != "Роман")
             return Task.FromResult(new HelloReply
             {

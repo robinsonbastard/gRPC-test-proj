@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using Grpc.Core;
 using GrpcProto.LoveContract;
 
@@ -7,6 +8,8 @@ public sealed class LoveGrpcService : GrpcProto.LoveContract.Love.LoveBase
 {
     public override Task<IsSheLoveReply> IsSheLove(IsSheLoveRequest request, ServerCallContext context)
     {
+        Console.WriteLine($"Пришел запрос от Hello на опредление любови {request.Name}");
+        
         var result = IsSheLove(request.Name);
 
         return Task.FromResult(new IsSheLoveReply
