@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option csharp_namespace = "Grpc.Server";
+
+package greet;
+
+service Hello {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+service Calculator {
+  rpc Calculate (CalculateRequest) returns (CalculateResponse);
+}
+
+message CalculateRequest {
+  float firstNum = 1;
+  float secondNum = 2;
+  OperationType operationType = 3;
+}
+
+message CalculateResponse {
+  float result = 1;
+}
+
+enum OperationType {
+  Add = 0;
+  Substract = 1;
+  Multiply = 2;
+  Divide = 3;
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
