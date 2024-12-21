@@ -1,6 +1,6 @@
 using System.Threading.Channels;
-using GrpcServiceSecond.gRpc;
-using GrpcServiceSecond.Services;
+using Grpc.Hello.gRpc;
+using Grpc.Hello.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +15,9 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-app.MapGrpcService<LoveGrpcService>();
+app.MapGrpcService<HelloGrpcService>();
 
-app.MapGet("/", () => "gRPC client 2");
+app.MapGet("/", () => "gRPC client 1");
         
 var cts = new CancellationTokenSource();
         

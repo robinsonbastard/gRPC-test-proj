@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcProto.LoveContract";
+
+service Love {
+  rpc IsSheLove (IsSheLoveRequest) returns (IsSheLoveReply);
+}
+
+message IsSheLoveRequest {
+  string name = 1;
+}
+
+message IsSheLoveReply {
+  bool result = 1;
+}
+

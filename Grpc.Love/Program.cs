@@ -1,13 +1,13 @@
 using System.Threading.Channels;
-using Grpc.Server.gRpc;
-using Grpc.Server.Services;
+using Grpc.Love.gRpc;
+using Grpc.Love.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var channel = Channel.CreateUnbounded<string>();
 
 builder.Services.AddSingleton<PrintService>(_ => new PrintService(channel));
-builder.Services.AddScoped<RequestService>(_ => new RequestService(channel));
+builder.Services.AddSingleton<RequestService>(_ => new RequestService(channel));
 builder.Services.AddSingleton<InputDataService>();
 builder.Services.AddHostedService<WorkerHostedService>();
 
@@ -15,9 +15,9 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-app.MapGrpcService<HelloService>();
+app.MapGrpcService<LoveGrpcService>();
 
-app.MapGet("/", () => "gRPC client 1");
+app.MapGet("/", () => "gRPC client 2");
         
 var cts = new CancellationTokenSource();
         

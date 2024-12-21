@@ -1,4 +1,4 @@
-﻿namespace Grpc.Server.Services;
+﻿namespace Grpc.Hello.Services;
 
 public sealed class InputDataService(RequestService requestService)
 {

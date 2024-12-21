@@ -4,10 +4,11 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Grpc.Contract</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <Protobuf Include="Protos\server.proto">
+      <Protobuf Include="Protos\*">
         <Generator>MSBuild:Compile</Generator>
       </Protobuf>
     </ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace GrpcServiceSecond.Services;
+﻿namespace Grpc.Love.Services;
 
 public sealed class WorkerHostedService(InputDataService inputDataService, PrintService printService) 
     : BackgroundService

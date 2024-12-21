@@ -1,7 +1,8 @@
 ﻿using System.Threading.Channels;
 using Grpc.Net.Client;
+using GrpcProto.HelloContract;
 
-namespace Grpc.Server.Services;
+namespace Grpc.Love.Services;
 
 public sealed class RequestService
 {
@@ -17,8 +18,16 @@ public sealed class RequestService
     
     public async Task RequestAsync(string message, CancellationToken cancellationToken)
     {
-        var reply = await _client.SayHelloAsync(new HelloRequest { Name = message }, cancellationToken: cancellationToken);
-        var messageForPrint = $"Получен ответ от gRPC-2 {reply.Message}";
-        await _channelWriter.WriteAsync(messageForPrint, cancellationToken);
+        try
+        {
+            var reply = await _client.SayHelloAsync(new HelloRequest { Name = message },
+                cancellationToken: cancellationToken);
+            var messageForPrint = $"Получен ответ от gRPC-2 {reply.Message}";
+            await _channelWriter.WriteAsync(messageForPrint, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            await _channelWriter.WriteAsync(e.Message, cancellationToken);
+        }
     }
 }

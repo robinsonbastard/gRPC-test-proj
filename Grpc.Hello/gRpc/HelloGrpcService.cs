@@ -1,8 +1,9 @@
 using Grpc.Core;
+using GrpcProto.HelloContract;
 
-namespace Grpc.Server.gRpc;
+namespace Grpc.Hello.gRpc;
 
-public sealed class HelloService : Hello.HelloBase
+public sealed class HelloGrpcService : GrpcProto.HelloContract.Hello.HelloBase
 {
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
@@ -13,6 +14,6 @@ public sealed class HelloService : Hello.HelloBase
             });
         
         var ex = new InvalidOperationException("Романов не преветствуем");
-        throw new RpcException(new Status(StatusCode.Unknown, ex.Message, ex));
+        throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message, ex));
     }
 }

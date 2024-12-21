@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grpc.Server", "Grpc.Server\Grpc.Server.csproj", "{8EE2F1CA-6FF8-45D6-B946-F4DECA01C3AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grpc.Hello", "Grpc.Hello\Grpc.Hello.csproj", "{8EE2F1CA-6FF8-45D6-B946-F4DECA01C3AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grpc.Contract", "Grpc.Contract\Grpc.Contract.csproj", "{94F83859-C986-4FE1-80AC-BD9335B57E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServiceSecond", "GrpcServiceSecond\GrpcServiceSecond.csproj", "{DBED2CE5-C845-41B6-83DC-A1A11E5301E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grpc.Love", "Grpc.Love\Grpc.Love.csproj", "{DBED2CE5-C845-41B6-83DC-A1A11E5301E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

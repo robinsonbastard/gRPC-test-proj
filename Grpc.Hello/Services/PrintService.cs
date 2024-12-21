@@ -1,6 +1,6 @@
 ﻿using System.Threading.Channels;
 
-namespace GrpcServiceSecond.Services;
+namespace Grpc.Hello.Services;
 
 public sealed class PrintService(Channel<string, string> channel)
 {

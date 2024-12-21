@@ -1,15 +1,15 @@
 using Grpc.Core;
-using Grpc.Server;
+using GrpcProto.LoveContract;
 
-namespace GrpcServiceSecond.gRpc;
+namespace Grpc.Love.gRpc;
 
-public sealed class LoveGrpcService : Love.LoveBase
+public sealed class LoveGrpcService : GrpcProto.LoveContract.Love.LoveBase
 {
-    public override Task<IsSheReply> IsSheLove(IsSheRequest request, ServerCallContext context)
+    public override Task<IsSheLoveReply> IsSheLove(IsSheLoveRequest request, ServerCallContext context)
     {
         var result = IsSheLove(request.Name);
 
-        return Task.FromResult(new IsSheReply
+        return Task.FromResult(new IsSheLoveReply
         {
             Result = result
         });
@@ -23,7 +23,7 @@ public sealed class LoveGrpcService : Love.LoveBase
             "Артем" => true,
             "Олег" => false,
             "Данил" => false,
-            _ => throw new RpcException(new Status(StatusCode.Unknown, $"Не знаю {text}", 
+            _ => throw new RpcException(new Status(StatusCode.InvalidArgument, $"Не знаю {text}", 
                 new InvalidOperationException($"Не знаю {text}")))
         };
     }
