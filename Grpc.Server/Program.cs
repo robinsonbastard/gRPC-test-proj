@@ -1,16 +1,29 @@
+using System.Threading.Channels;
+using Grpc.Server.gRpc;
 using Grpc.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var channel = Channel.CreateUnbounded<string>();
+
+builder.Services.AddSingleton<PrintService>(_ => new PrintService(channel));
+builder.Services.AddScoped<RequestService>(_ => new RequestService(channel));
+builder.Services.AddSingleton<InputDataService>();
+builder.Services.AddHostedService<WorkerHostedService>();
 
 builder.Services.AddGrpc();
 
 var app = builder.Build();
 
 app.MapGrpcService<HelloService>();
-app.MapGrpcService<CalculatorService>();
 
-app.MapGet("/",
-    () =>
-        "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-
-await app.RunAsync();
+app.MapGet("/", () => "gRPC client 1");
+        
+var cts = new CancellationTokenSource();
+        
+Console.CancelKeyPress += (_, e) =>
+{
+    e.Cancel = true;
+    cts.Cancel();
+};
+await app.RunAsync(cts.Token);
